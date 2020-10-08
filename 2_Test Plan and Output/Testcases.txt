@@ -2,7 +2,7 @@
 
 
 TEST CASE	TEST SCENARIO	             TEST DATA	                            RESULT
-1	      ➔	To add the new user  (Enter ‘1’ for Adding the new user).        1.User Name/email-id: abc
+1	      ➔	To add the new user  (Enter ‘1’ for Adding the new user).  1.User Name/email-id: abc
                                                                               Password:abc@123
 
                                                                             2.User Name: def
@@ -25,15 +25,15 @@ TEST CASE	TEST SCENARIO	             TEST DATA	                            RESUL
                                                                              abc            abc@123
                                                                              def            def@123
 
-                                                                              Login successful
-                                                                              1.Packaged booked
-                                                                              2.TOURISM TICKET
-                                                                               ===============
-                                                                               Username/Email ID: abc
-                                                                               Tour Code: LL
-                                                                               Ticket Cost: Rs 120000.000000
-                                                                               Number of tickets: 5
-                                                                               Total Cost: Rs 600000.000000
+                                                                             Login successful
+                                                                             1.Packaged booked
+                                                                             2.TOURISM TICKET
+                                                                             ===============
+                                                                             Username/Email ID: abc
+                                                                             Tour Code: LL
+                                                                             Ticket Cost: Rs 120000.000000
+                                                                             Number of tickets: 5
+                                                                             Total Cost: Rs 600000.000000
 
 
 3	➔	Brochure-To see the tour places 	                  (Enter ‘3’ for seeing the brochure.)
@@ -63,12 +63,12 @@ TEST CASE	TEST SCENARIO	             TEST DATA	                            RESUL
                                                                           2)Enter place code (eg: LL, JK)
                                                                             JK
 
-                                                                            Would You Like to Confirm Booking?
-                                                                            [1] - Yes
-                                                                            [2] - No
-                                                                             1
+                                                                           Would You Like to Confirm Booking?
+                                                                           [1] - Yes
+                                                                           [2] - No
+                                                                            1
                                                                             Enter the number of tickets you want to book?
-                                                                             2
+                                                                            2
                                                                             Bookings Done!!
 
 4	      ➔	Exit  	                (Enter ‘4’ for exit/quit)            Exiting................................
@@ -80,6 +80,8 @@ TEST CASE	TEST SCENARIO	             TEST DATA	                            RESUL
 
                              TEST CASE ID	                                                                    Expected Result
                                  1	                                                                       Users are successfully added.
+				 
+				 
 
                                  2	                                                                       Username    Password
                                                                                                             -----------------------------
@@ -88,6 +90,8 @@ TEST CASE	TEST SCENARIO	             TEST DATA	                            RESUL
                                                                                                                 def        def@123
 
                                                                                                                  Login successful
+														 
+														 
 
                                  3	                                                                         Username     Password
                                                                                                              ------------------------------
