@@ -1,5 +1,4 @@
-#include<stdio.h>
-#include<stdio.h>
+#include<stdio.h>          //standard c header files
 #include<stdlib.h>
 #include<string.h>
 
@@ -8,7 +7,7 @@
 enum state{menu,loggedin};
 enum state currentstate=menu;
 
-typedef struct user
+typedef struct user            //Declaration of structure
 {
     char username[100];
     char password[100];
@@ -18,7 +17,7 @@ typedef struct user
     struct user *next;
 }user;
 
-void ShowBrochure();
+void ShowBrochure();           // all functions of tourism management system
 user* InitializeList(user*);
 user* AddUser(user*);
 void LoginUser(user*);
@@ -34,7 +33,7 @@ void ExitProgram();
 
 char currentuser[100];
 
-int main()
+int main()                       //main function
 {
     printf("\t\t\t==== || TOURISM MANAGEMENT SYSTEM || ====\n");
     user *h=NULL;
@@ -51,16 +50,16 @@ int main()
             switch(ch1)
             {
                 case 1:
-                    h=AddUser(h);
+                    h=AddUser(h);                  //for adding the user
                     break;
                 case 2:
-                    LoginUser(h);
+                    LoginUser(h);                  //for login the user
                     break;
                 case 3:
-                    ShowBrochure();
+                    ShowBrochure();               //to see the tourism brochures with there packages
                     break;
                 case 4:
-                    ExitProgram();
+                    ExitProgram();                 //for exiting
                     exit(0);
                     break;
                 default:
@@ -162,7 +161,7 @@ user* InitializeList(user *h)
     return t;
 }
 
-void WriteToFile(user *h)
+void WriteToFile(user *h)                   //file operations
 {
     FILE *fp;
     fp=fopen("users.txt","w");
@@ -174,14 +173,14 @@ void WriteToFile(user *h)
     fclose(fp);
 }
 
-void ShowBrochure()
+void ShowBrochure()                     //function to show tourism brochure with packages
 {
 	system("CLS");
     printf("\tPRICE LIST\n=============================\n1. LL - Canyon Tours - Rs 40000\n2. JK - Grand Canyon Local Tours - Rs 60000\n3. SK - San Francisco Local Tours - Rs 25000\n4. SHM - Miami Vacation - Rs 38000\n"
            "5. AND - Hawaii - Rs 120000\n6. BHB - Atlanta Vacation - Rs 10000\n7. AG - San Francisco - Rs 30000\n8. ND - Alaska Vacation - Rs 32000\n9. RJ - Orlando Vacation - Rs 45000\n10. SI - South US Tour - Rs 250000\n");
 }
 
-void CheckTicket(user *h)
+void CheckTicket(user *h)              //function to checkticket
 {
     while(h!=NULL)
     {
@@ -199,7 +198,7 @@ void CheckTicket(user *h)
     printf("You have booked %d tickets for a sum total of Rs %f for tour code %s\n",h->numtick,total,h->place);
 }
 
-user* AddUser(user* h)
+user* AddUser(user* h)       //function to add the user
 {
     user *t;
     t=h;
@@ -242,7 +241,7 @@ user* AddUser(user* h)
     return t;
 }
 
-void LoginUser(user* h)
+void LoginUser(user* h)          //function to login the user
 {
     char username[100];
     char password[100];
@@ -274,7 +273,7 @@ void LoginUser(user* h)
     printf("Sorry, no such user record was found\n");
 }
 
-void BookTicket(user *h)
+void BookTicket(user *h)                     //function to book ticket
 {
     user *t=h;
     char place[100];
@@ -340,7 +339,7 @@ void BookTicket(user *h)
     
 }
 
-void PrintTicket(user *h)
+void PrintTicket(user *h)                    //function to print the tickets
 {
     while(h!=NULL)
     {
@@ -372,8 +371,8 @@ void PrintTicket(user *h)
     fprintf(fp,"Email ID: %s\nTour Code: %s\nTicket Cost: Rs %f\nNumber of tickets: %d\nTotal Cost: Rs %f\n",h->username,h->place,h->price,h->numtick,total);
     fclose(fp);
 }
-//TMS1353f
-void CancelTicket(user *h)
+
+void CancelTicket(user *h)                        //function to cancel the tickets             
 {
     user *t=h;
     while(h!=NULL)
@@ -423,7 +422,7 @@ void CancelTicket(user *h)
     }
 }
 
-void ChangePassword(user *h)
+void ChangePassword(user *h)            //function to change the password 
 {
     user *t=h;
     char passcurr[100];
@@ -446,7 +445,7 @@ void ChangePassword(user *h)
     WriteToFile(t);
 }
 
-void LogoutUser()
+void LogoutUser()            //function to logout user
 {
     if(currentstate==menu || strcmp(currentuser,"\0")==0)
     {
@@ -458,7 +457,7 @@ void LogoutUser()
     printf("You have been successfully logged out\n");
 }
 
-void ExitProgram()
+void ExitProgram()         //function to exit
 {
     printf("Exiting...\n\n\nPress \"Enter/Return\" to exit");
     char exitprog;
