@@ -1,0 +1,44 @@
+REQUIREMENTS
+ 1 HARDWARE REQUIREMENTS
+•	RAM- 4GB or above
+•	Processor- Intel Core- 32 bit or more
+
+ 2 SOFTWARE REQUIREMENTS
+•	Operating system – Any operating system
+•	IDE - CodeBlocks,Dev c++
+•	Language – C
+•	Compiler - mingw,any c compiler
+
+ 3 FUNCTIONAL REQUIREMENTS
+•	      1.Add User-This function is used to add the new user/customer. To add the new record it requires the username or email-id and password.
+        2.Login User-This function is used to login for customers. This list has various attributes like  username or email-id and password.
+        3. Tour Brochure -This function is used to  see all tour packages and their costs by clicking the tour location codes
+        4.Exit- This function is used to exit from the website by pressing any key.
+
+•TEST OBJECTIVE:
+The main objective is to verify the different functionalities of the Application Under Test (AUT). 
+The project should focus on testing operations such as adduser,login user,tour-brochure,exit to make it work without errors on an actual environment.
+
+•TEST CRITERIA:
+The entry and the exit criteria can be determined by four levels:
+
+•Unit testing: It is a type of testing where individual units are tested.
+
+•Integration testing: It is a type of testing where individual software modules are tested in a group.
+
+•System testing: It is a type of testing where the integrated or the complete product is tested whether the product meets the requirement or not.
+
+•Acceptance testing: It is a type of testing done to determine the system compliance and  whether it meets the business requirements. 
+
+•SUSPENSION CRITERIA
+If more than 40% of test cases are failed then the testing is suspended until all failed cases are fixed.
+
+•EXIT CRITERIA
+The exit criteria is a situation where all the test cases planned are successful and meet the expected outcome which is defined in the corresponding test case.
+
+•TEST CASES
+All the test cases are carried out in Code::blocks IDE version 20.03 
+
+
+
+
