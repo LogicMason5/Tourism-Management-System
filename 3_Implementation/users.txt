@@ -1,0 +1,6 @@
+
+username password place    price          no of tickets
+abc      abc@123  AND   120000.000000        5
+def      def@123  LL    40000.000000         1
+tom      tom      N/A   0.000000             0
+tony     tony     N/A   0.000000             0
