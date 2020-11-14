@@ -5,8 +5,8 @@
 
 void test_adduser(void);
 void test_loginuser(void);
-void test_brochure(void);
-void test_exit(void);
+//void test_brochure(void);
+//void test_exit(void);
 
 
 int main() {
@@ -35,15 +35,14 @@ void test_adduser(void){
  }
 
 void test_loginuser(void){
+  CU_ASSERT(abcd ==login(abcd));           //login username
+  CU_ASSERT(abcd@123 == login(abcd@123));  //login password
+  CU_ASSERT(def == login(def));           //login  username
+  CU_ASSERT(def@123 == login(def@123));   //login   password
+ 
   
 }
 
-void test_brochure(void){
-  
-}
 
-void test_exit(void){
-  
-}
 
 
