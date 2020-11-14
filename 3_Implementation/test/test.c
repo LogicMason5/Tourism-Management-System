@@ -42,6 +42,14 @@ void test_loginuser(void){
  
   
 }
+void test_brochure(void){
+  
+}
+
+void test_exit(void){
+  
+}
+
 
 
 
