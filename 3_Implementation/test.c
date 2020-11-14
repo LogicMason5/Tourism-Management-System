@@ -5,8 +5,8 @@
 
 void test_adduser(void);
 void test_loginuser(void);
-void test_brochure(void);
-void test_exit(void);
+//void test_brochure(void);
+//void test_exit(void);
 
 
 int main() {
@@ -17,8 +17,8 @@ int main() {
   
   CU_add_test(suite, "adduser", test_adduser);
   CU_add_test(suite, "loginuser", test_loginuser);
-  CU_add_test(suite, "brochure", test_brochure);
-  CU_add_test(suite, "exit", test_exit);
+  //CU_add_test(suite, "brochure", test_brochure);
+  //CU_add_test(suite, "exit", test_exit);
   
  
 
@@ -35,15 +35,13 @@ void test_adduser(void){
  }
 
 void test_loginuser(void){
-  
+  CU_ASSERT(def == login(def));           //login username
+  CU_ASSERT(def@123 == login(def@123));   //login  password
+  CU_ASSERT(def == login(def));           //login username
+  CU_ASSERT(def@123 == login(def@123));   //login  password
+ 
 }
 
-void test_brochure(void){
-  
-}
 
-void test_exit(void){
-  
-}
 
 
