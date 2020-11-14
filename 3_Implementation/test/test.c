@@ -5,8 +5,8 @@
 
 void test_adduser(void);
 void test_loginuser(void);
-//void test_brochure(void);
-//void test_exit(void);
+void test_brochure(void);
+void test_exit(void);
 
 
 int main() {
