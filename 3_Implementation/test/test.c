@@ -18,7 +18,7 @@ int main() {
 /* Note: Do not edit END */
 
 /* Add your test functions in this format for testing*/
-  CU_add_test(suite, "Tourism_Management_System", test_do_exitProgram);
+  CU_add_test(suite, "Tourism_Management_System", test_do_ExitProgram);
 
 
 
