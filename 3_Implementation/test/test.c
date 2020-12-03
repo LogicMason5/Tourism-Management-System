@@ -5,7 +5,7 @@
 #define PROJECT_NAME "Tourism_Management_System"
 
 /* Prototypes for all the test functions */
-void test_do_exitProgram(void);
+void test_do_ExitProgram(void);
 
 
 /* Start of the application test */
@@ -35,7 +35,7 @@ int main() {
   return 0;
 }
 /* Write all the test functions */
-void test_do_exitProgram(void){
+void test_do_ExitProgram(void){
   CU_ASSERT_EQUAL(0,exita());
 }
 
