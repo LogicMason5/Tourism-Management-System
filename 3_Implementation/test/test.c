@@ -1,56 +1,45 @@
 #include <CUnit/Basic.h>
 #include <CUnit/CUnit.h>
-#include<tourism.h>
-#define PROJECT_NAME    "Tourism_Management_System"
 
-void test_adduser(void);
-void test_loginuser(void);
-void test_brochure(void);
-void test_exit(void);
+#include <dict.h>
+#define PROJECT_NAME "Tourism_Management_System"
+
+/* Prototypes for all the test functions */
+void test_do_exitProgram(void);
 
 
+/* Start of the application test */
 int main() {
-
+/* Note: Do not edit START*/
+  /*Initialize and setup the Test Framework */
   if (CUE_SUCCESS != CU_initialize_registry())
     return CU_get_error();
   CU_pSuite suite = CU_add_suite(PROJECT_NAME, 0, 0);
-  
-  CU_add_test(suite, "adduser", test_adduser);
-  CU_add_test(suite, "loginuser", test_loginuser);
-  CU_add_test(suite, "brochure", test_brochure);
-  CU_add_test(suite, "exit", test_exit);
-  
- 
+/* Note: Do not edit END */
 
+/* Add your test functions in this format for testing*/
+  CU_add_test(suite, "Tourism_Management_System", test_do_exitProgram);
+
+
+
+/* Note: Do not edit START*/
+  /* Setup Test Framework to output the result to Screen */
   CU_basic_set_mode(CU_BRM_VERBOSE);
+
+  /* run the unit test framework*/
   CU_basic_run_tests();
+
+  /* Cleaning the Resources used by Unit test framework */
   CU_cleanup_registry();
+/* Note: Do not edit END */
   return 0;
 }
-void test_adduser(void){
-  CU_ASSERT(abcd == add(abcd));          //adding username
-  CU_ASSERT(abcd@123 == add(abcd@123));  //adding password
-  CU_ASSERT(def == add(def));           //adding username
-  CU_ASSERT(def@123 == add(def@123));   //adding  password
- }
-
-void test_loginuser(void){
-  CU_ASSERT(abcd ==login(abcd));           //login username
-  CU_ASSERT(abcd@123 == login(abcd@123));  //login password
-  CU_ASSERT(def == login(def));           //login  username
-  CU_ASSERT(def@123 == login(def@123));   //login   password
- 
-  
-}
-void test_brochure(void){
-  
-}
-
-void test_exit(void){
-  
+/* Write all the test functions */
+void test_do_exitProgram(void){
+  CU_ASSERT_EQUAL(0,exita());
 }
 
 
-
+  /* Dummy fail*/
 
 
