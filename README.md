@@ -1,2 +1,1 @@
-# Tourism-Management-System
-MINI PROJECT ON TOURISM MANAGEMENT SYSTEM
+![cppcheck-action](https://github.com/stepin104918/Tourism-Management-System/workflows/cppcheck-action/badge.svg)
