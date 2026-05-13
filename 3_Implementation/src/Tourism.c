@@ -1,346 +1,597 @@
-#include "Tourism.h"
+/*
+    OPTIMIZED TOURISM MANAGEMENT SYSTEM
+    ----------------------------------
+    Features:
+    - User Registration/Login
+    - Book Ticket
+    - Cancel Ticket
+    - Print Ticket
+    - Change Password
+    - File Handling
+    - Linked List Storage
+*/
+
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdio.h>
 
+#define MAX_STR 100
+#define TOUR_COUNT 10
 
-user* InitializeList(user *h)
+typedef struct User
 {
-    user* t,*ptr,temp;
-    FILE *fp;
-    int cc=0,x;
-    float ff;
-    fp=fopen("users.txt","r");
+    char username[MAX_STR];
+    char password[MAX_STR];
+    char place[MAX_STR];
 
-    if(fp==NULL)
-        return NULL;
-
-    if(fgetc(fp)==EOF)
-        return NULL;
-
-    rewind(fp);
-	while(fscanf(fp,"%s %s %s %f %d",temp.username,temp.password,temp.place,&temp.price,&temp.numtick)!=EOF)
-	{
-		ptr=(user*)malloc(sizeof(user));
-		strcpy(ptr->username,temp.username);
-		strcpy(ptr->password,temp.password);
-		strcpy(ptr->place,temp.place);
-		ptr->price=temp.price;
-		ptr->numtick=temp.numtick;
-		ptr->next=NULL;
-
-		if(h==NULL)
-            h=t=ptr;
-		else
-		{
-			h->next=ptr;
-			h=ptr;
-		}
-	}
-	fclose(fp);
-    return t;
-}
-
-void WriteToFile(user *h)                   //function for file operations
-{
-    FILE *fp;
-    fp=fopen("users.txt","w");
-    while(h!=NULL)
-    {
-        fprintf(fp,"%s %s %s %f %d\n",h->username,h->password,h->place,h->price,h->numtick);
-        h=h->next;
-    }
-    fclose(fp);
-}
-
-void ShowBrochure()                       //function to show tourism brochure
-{
-	system("CLS");
-    printf("\tPRICE LIST\n=============================\n1. LL - Antelope Canyon Tours - Rs 40000\n2. JK - Grand Canyon Local Tours - Rs 60000\n3. SK - San Francisco Local Tours - Rs 25000\n4. SHM - Miami Vacation - Rs 38000\n"
-           "5. AND - Hawaii - Rs 120000\n6. BHB - Atlanta Vacation - Rs 10000\n7. AG - San Francisco - Rs 30000\n8. ND - Alaska Vacation - Rs 32000\n9. RJ - Orlando Vacation - Rs 45000\n10. SI - South US Tour - Rs 250000\n");
-}
-
-void CheckTicket(user *h)                 //function to check ticket
-{
-    while(h!=NULL)
-    {
-        if(!strcmp(h->username,currentuser))
-            break;
-        h=h->next;
-    }
-    if(!strcmp(h->place,"\0") || h->price==0.0 || h->numtick==0)
-    {
-        printf("You do not have a ticket booked yet\n");
-        return;
-    }
-    float total=0.0;
-    total=(h->price)*(h->numtick);
-    printf("You have booked %d tickets for a sum total of Rs %f for tour code %s\n",h->numtick,total,h->place);
-}
-
-user* AddUser(user* h)                        //function to add user
-{
-    user *t;
-    t=h;
-    user *nw;
-    nw=(user*)malloc(sizeof(user));
-    fflush(stdin);
-    printf("Enter username or email\n");
-    scanf("%s",nw->username);
-    while(h!=NULL)
-    {
-        if(!strcmp(h->username,nw->username))
-        {
-            printf("That email already exists\n");
-            return t;
-        }
-        h=h->next;
-    }
-    h=t;
-    fflush(stdin);
-    printf("Enter password\n");
-    scanf(" %[^\n]s",&nw->password);
-    nw->next=NULL;
-    strcpy(nw->place,"N/A");
-    nw->price=0.0;
-    nw->numtick=0;
-
-    if(h==NULL)
-    {
-        h=t=nw;
-    }
-    else
-    {
-        while(h->next!=NULL)
-        {
-            h=h->next;
-        }
-        h->next=nw;
-    }
-    WriteToFile(t);
-    return t;
-}
-
-void LoginUser(user* h)                                  //function to login user
-{
-    char username[100];
-    char password[100];
-    fflush(stdin);
-    printf("\n\n");
-    printf("\t\tEnter Email/Username:\n\t\t");
-    scanf("%s",username);
-    fflush(stdin);
-    printf("\n\t\tEnter Password:\n\t\t");
-    scanf(" %[^\n]s",password);
-    while(h!=NULL)
-    {
-        if((!strcmp(h->username,username)) && (!strcmp(h->password,password)))
-        {
-            currentstate=loggedin;
-            strcpy(currentuser,username);
-            
-            printf("\n\t\tLogin successful!\n");
-            system("PAUSE");
-            return;
-        }
-        else if((!strcmp(h->username,username)) && (strcmp(h->password,password)))
-        {
-            printf("Password mismatch\n");
-            return;
-        }
-        h=h->next;
-    }
-    printf("Sorry, no such user record was found\n");
-}
-
-void BookTicket(user *h)                          //function to bookticket
-{
-    user *t=h;
-    char place[100];
-    while(h!=NULL)
-    {
-        if(!strcmp(h->username,currentuser))
-            break;
-        h=h->next;
-    }
-    if(h==NULL)
-        return;
-    if(h->price!=0.0)
-    {
-        printf("You must cancel your previous ticket before buying a new one\n");
-        return;
-    }
-    ShowBrochure();
-    float pricelist[]={40000.0,60000.0,25000.0,38000.0,120000.0,10000.0,30000.0,32000.0,45000.0,250000.0};
-    fflush(stdin);
-    printf("\nEnter place code (eg: LL, JK)\n");
-    scanf(" %[^\n]s",place);
-    char choice;
-    fflush(stdin);
-    printf("\nWould You Like to Confirm Booking?\n[1] - Yes\n[2] - No\n");
-    scanf("%c",&choice);
     float price;
-    if(choice!='1')
-        return;
-    if(strcmp(place,"LL")==0)
-        price=pricelist[0];
-    else if(strcmp(place,"JK")==0)
-        price=pricelist[1];
-    else if(strcmp(place,"SK")==0)
-        price=pricelist[2];
-    else if(strcmp(place,"SHM")==0)
-        price=pricelist[3];
-    else if(strcmp(place,"AND")==0)
-        price=pricelist[4];
-    else if(strcmp(place,"BHB")==0)
-        price=pricelist[5];
-    else if(strcmp(place,"AG")==0)
-        price=pricelist[6];
-    else if(strcmp(place,"ND")==0)
-        price=pricelist[7];
-    else if(strcmp(place,"RJ")==0)
-        price=pricelist[8];
-    else if(strcmp(place,"SI")==0)
-        price=pricelist[9];
-    else
-    {
-        printf("That tour code doesn't exist\n");
-        return;
-    }
-    printf("Enter the number of tickets you want to book?\n");
-    scanf("%d",&h->numtick);
-    if(h->numtick==0)
-        return;
-    strcpy(h->place,place);
-    h->price=price;
-    WriteToFile(t);
-    printf("Bookings Done!!\n");
-    system("PAUSE");
-    
+    int numtick;
+
+    struct User *next;
+
+} user;
+
+typedef struct
+{
+    char code[10];
+    char name[100];
+    float price;
+
+} Tour;
+
+Tour tours[TOUR_COUNT] =
+{
+    {"LL",  "Antelope Canyon Tours",      40000},
+    {"JK",  "Grand Canyon Local Tours",   60000},
+    {"SK",  "San Francisco Local Tours",  25000},
+    {"SHM", "Miami Vacation",             38000},
+    {"AND", "Hawaii",                     120000},
+    {"BHB", "Atlanta Vacation",           10000},
+    {"AG",  "San Francisco",              30000},
+    {"ND",  "Alaska Vacation",            32000},
+    {"RJ",  "Orlando Vacation",           45000},
+    {"SI",  "South US Tour",              250000}
+};
+
+char currentuser[MAX_STR] = "";
+
+typedef enum
+{
+    MENU,
+    LOGGED_IN
+
+} State;
+
+State currentstate = MENU;
+
+/* -------------------------------------------------- */
+
+void clearInput()
+{
+    int c;
+
+    while((c = getchar()) != '\n' && c != EOF);
 }
 
-void PrintTicket(user *h)                      //function to printticket
+/* -------------------------------------------------- */
+
+user* FindUser(user *head, const char *username)
 {
-    while(h!=NULL)
+    while(head)
     {
-        if(!strcmp(h->username,currentuser))
-            break;
-        h=h->next;
+        if(strcmp(head->username, username) == 0)
+            return head;
+
+        head = head->next;
     }
-    if(!strcmp(h->place,"\0") || h->price==0.0 || h->numtick==0)
+
+    return NULL;
+}
+
+/* -------------------------------------------------- */
+
+void WriteToFile(user *head)
+{
+    FILE *fp = fopen("users.txt", "w");
+
+    if(fp == NULL)
     {
-        printf("You do not have a ticket booked yet\n");
+        printf("Error opening file.\n");
         return;
     }
-    float total=0.0;
-    total=(h->price)*(h->numtick);
-    FILE *fp;
-    char filename[50];
-    strcpy(filename,h->username);
-    strcat(filename,"_ticket.txt");
-    fp=fopen(filename,"w");
-    if(fp==NULL)
+
+    while(head)
     {
-        printf("Problem opening the file\n");
-        return;
+        fprintf(fp,
+                "%s %s %s %.2f %d\n",
+                head->username,
+                head->password,
+                head->place,
+                head->price,
+                head->numtick);
+
+        head = head->next;
     }
-    if(fgetc(fp)==EOF)
-    {
-        fprintf(fp,"TOURISM TICKET\n===============\n\n");
-    }
-    fprintf(fp,"Email ID: %s\nTour Code: %s\nTicket Cost: Rs %f\nNumber of tickets: %d\nTotal Cost: Rs %f\n",h->username,h->place,h->price,h->numtick,total);
+
     fclose(fp);
 }
-//TMS1353f
-void CancelTicket(user *h)                  //function to cancel ticket
+
+/* -------------------------------------------------- */
+
+user* InitializeList()
 {
-    user *t=h;
-    while(h!=NULL)
+    FILE *fp = fopen("users.txt", "r");
+
+    if(fp == NULL)
+        return NULL;
+
+    user temp;
+    user *head = NULL;
+    user *tail = NULL;
+
+    while(fscanf(fp,
+                 "%99s %99s %99s %f %d",
+                 temp.username,
+                 temp.password,
+                 temp.place,
+                 &temp.price,
+                 &temp.numtick) == 5)
     {
-        if(!strcmp(h->username,currentuser))
-            break;
-        h=h->next;
+        user *newNode = (user*)malloc(sizeof(user));
+
+        if(newNode == NULL)
+        {
+            printf("Memory allocation failed.\n");
+            fclose(fp);
+            return head;
+        }
+
+        *newNode = temp;
+        newNode->next = NULL;
+
+        if(head == NULL)
+        {
+            head = tail = newNode;
+        }
+        else
+        {
+            tail->next = newNode;
+            tail = newNode;
+        }
     }
 
-    int flag=-1;
+    fclose(fp);
 
-    if(h==NULL)
-        printf("No such user\n");
+    return head;
+}
 
-    if(strcmp(h->place,"LL")==0)
-        flag++;
-    else if(strcmp(h->place,"JK")==0)
-        flag++;
-    else if(strcmp(h->place,"SK")==0)
-        flag++;
-    else if(strcmp(h->place,"SHM")==0)
-        flag++;
-    else if(strcmp(h->place,"AND")==0)
-        flag++;
-    else if(strcmp(h->place,"BHB")==0)
-        flag++;
-    else if(strcmp(h->place,"AG")==0)
-        flag++;
-    else if(strcmp(h->place,"ND")==0)
-        flag++;
-    else if(strcmp(h->place,"RJ")==0)
-        flag++;
-    else if(strcmp(h->place,"SI")==0)
-        flag++;
+/* -------------------------------------------------- */
+
+void ShowBrochure()
+{
+    printf("\n=========== TOUR PACKAGES ===========\n\n");
+
+    for(int i = 0; i < TOUR_COUNT; i++)
+    {
+        printf("%-5s %-30s Rs %.2f\n",
+               tours[i].code,
+               tours[i].name,
+               tours[i].price);
+    }
+
+    printf("\n");
+}
+
+/* -------------------------------------------------- */
+
+user* AddUser(user *head)
+{
+    user *newUser = (user*)malloc(sizeof(user));
+
+    if(newUser == NULL)
+    {
+        printf("Memory allocation failed.\n");
+        return head;
+    }
+
+    printf("Enter Username/Email: ");
+    scanf("%99s", newUser->username);
+
+    if(FindUser(head, newUser->username))
+    {
+        printf("User already exists.\n");
+        free(newUser);
+        return head;
+    }
+
+    clearInput();
+
+    printf("Enter Password: ");
+    fgets(newUser->password, MAX_STR, stdin);
+
+    newUser->password[strcspn(newUser->password, "\n")] = '\0';
+
+    strcpy(newUser->place, "N/A");
+
+    newUser->price = 0;
+    newUser->numtick = 0;
+    newUser->next = NULL;
+
+    if(head == NULL)
+    {
+        head = newUser;
+    }
     else
     {
-        printf("You haven't booked a tour yet\n");
+        user *temp = head;
+
+        while(temp->next)
+            temp = temp->next;
+
+        temp->next = newUser;
+    }
+
+    WriteToFile(head);
+
+    printf("Registration Successful!\n");
+
+    return head;
+}
+
+/* -------------------------------------------------- */
+
+void LoginUser(user *head)
+{
+    char username[MAX_STR];
+    char password[MAX_STR];
+
+    printf("Enter Username: ");
+    scanf("%99s", username);
+
+    clearInput();
+
+    printf("Enter Password: ");
+    fgets(password, MAX_STR, stdin);
+
+    password[strcspn(password, "\n")] = '\0';
+
+    user *u = FindUser(head, username);
+
+    if(u == NULL)
+    {
+        printf("User not found.\n");
         return;
     }
-    if(flag==0)
+
+    if(strcmp(u->password, password) == 0)
     {
-        printf("Your ticket has been successfully cancelled\nA refund of Rs %f for Tour Code %s for %d tickets will soon be made to your original source of purchase\n",h->price,h->place,h->numtick);
-        strcpy(h->place,"N/A");
-        h->price=0.0;
-        h->numtick=0;
-        WriteToFile(t);
+        currentstate = LOGGED_IN;
+
+        strcpy(currentuser, username);
+
+        printf("Login Successful!\n");
+    }
+    else
+    {
+        printf("Incorrect Password.\n");
     }
 }
 
-void ChangePassword(user *h)          //function to change password 
-{
-    user *t=h;
-    char passcurr[100];
-    fflush(stdin);
-    printf("Enter your current password to continue:\n");
-    scanf(" %[^\n]s",passcurr);
-    while(h!=NULL)
-    {
-        if(!strcmp(h->username,currentuser))
-            break;
-        h=h->next;
-    }
-    if(h==NULL)
-        return;
-    if(!strcmp(passcurr,h->password))
-    {
-        printf("Enter new password:\n");
-        scanf(" %[^\n]s",h->password);
-    }
-    WriteToFile(t);
-}
+/* -------------------------------------------------- */
 
-void LogoutUser()                         //function to logout user
+void BookTicket(user *head)
 {
-    if(currentstate==menu || strcmp(currentuser,"\0")==0)
+    user *u = FindUser(head, currentuser);
+
+    if(u == NULL)
+        return;
+
+    if(strcmp(u->place, "N/A") != 0)
     {
-        printf("You must be logged in to logout\n");
+        printf("Cancel existing booking first.\n");
         return;
     }
-    strcpy(currentuser,"\0");
-    currentstate=menu;
-    printf("You have been successfully logged out\n");
+
+    ShowBrochure();
+
+    char code[20];
+    int tickets;
+
+    printf("Enter Tour Code: ");
+    scanf("%19s", code);
+
+    int found = 0;
+
+    for(int i = 0; i < TOUR_COUNT; i++)
+    {
+        if(strcmp(code, tours[i].code) == 0)
+        {
+            found = 1;
+
+            printf("Enter Number of Tickets: ");
+            scanf("%d", &tickets);
+
+            if(tickets <= 0)
+            {
+                printf("Invalid ticket count.\n");
+                return;
+            }
+
+            strcpy(u->place, code);
+
+            u->price = tours[i].price;
+            u->numtick = tickets;
+
+            WriteToFile(head);
+
+            printf("Booking Successful!\n");
+
+            return;
+        }
+    }
+
+    if(!found)
+        printf("Invalid Tour Code.\n");
 }
 
-void ExitProgram()
+/* -------------------------------------------------- */
+
+void CheckTicket(user *head)
 {
-    printf("Exiting...\n  By sowjanya(104918)\n\nPress \"Enter/Return\" to exit");
-    char exitprog;
-    fflush(stdin);
-    scanf("%c",&exitprog);
+    user *u = FindUser(head, currentuser);
+
+    if(u == NULL)
+        return;
+
+    if(strcmp(u->place, "N/A") == 0)
+    {
+        printf("No tickets booked.\n");
+        return;
+    }
+
+    float total = u->price * u->numtick;
+
+    printf("\n========== TICKET DETAILS ==========\n");
+
+    printf("Tour Code      : %s\n", u->place);
+    printf("Ticket Price   : %.2f\n", u->price);
+    printf("Total Tickets  : %d\n", u->numtick);
+    printf("Total Cost     : %.2f\n", total);
+}
+
+/* -------------------------------------------------- */
+
+void PrintTicket(user *head)
+{
+    user *u = FindUser(head, currentuser);
+
+    if(u == NULL)
+        return;
+
+    if(strcmp(u->place, "N/A") == 0)
+    {
+        printf("No booking found.\n");
+        return;
+    }
+
+    char filename[150];
+
+    sprintf(filename, "%s_ticket.txt", u->username);
+
+    FILE *fp = fopen(filename, "w");
+
+    if(fp == NULL)
+    {
+        printf("Unable to create ticket file.\n");
+        return;
+    }
+
+    float total = u->price * u->numtick;
+
+    fprintf(fp,
+            "=========== TOURISM TICKET ===========\n\n");
+
+    fprintf(fp, "User           : %s\n", u->username);
+    fprintf(fp, "Tour Code      : %s\n", u->place);
+    fprintf(fp, "Price          : %.2f\n", u->price);
+    fprintf(fp, "Tickets        : %d\n", u->numtick);
+    fprintf(fp, "Total Cost     : %.2f\n", total);
+
+    fclose(fp);
+
+    printf("Ticket printed successfully.\n");
+}
+
+/* -------------------------------------------------- */
+
+void CancelTicket(user *head)
+{
+    user *u = FindUser(head, currentuser);
+
+    if(u == NULL)
+        return;
+
+    if(strcmp(u->place, "N/A") == 0)
+    {
+        printf("No booking found.\n");
+        return;
+    }
+
+    float refund = u->price * u->numtick;
+
+    printf("Booking Cancelled.\n");
+    printf("Refund Amount: %.2f\n", refund);
+
+    strcpy(u->place, "N/A");
+
+    u->price = 0;
+    u->numtick = 0;
+
+    WriteToFile(head);
+}
+
+/* -------------------------------------------------- */
+
+void ChangePassword(user *head)
+{
+    user *u = FindUser(head, currentuser);
+
+    if(u == NULL)
+        return;
+
+    char oldpass[MAX_STR];
+    char newpass[MAX_STR];
+
+    clearInput();
+
+    printf("Enter Current Password: ");
+    fgets(oldpass, MAX_STR, stdin);
+
+    oldpass[strcspn(oldpass, "\n")] = '\0';
+
+    if(strcmp(oldpass, u->password) != 0)
+    {
+        printf("Incorrect password.\n");
+        return;
+    }
+
+    printf("Enter New Password: ");
+    fgets(newpass, MAX_STR, stdin);
+
+    newpass[strcspn(newpass, "\n")] = '\0';
+
+    strcpy(u->password, newpass);
+
+    WriteToFile(head);
+
+    printf("Password Changed Successfully.\n");
+}
+
+/* -------------------------------------------------- */
+
+void LogoutUser()
+{
+    if(currentstate == MENU)
+    {
+        printf("No user logged in.\n");
+        return;
+    }
+
+    currentstate = MENU;
+
+    strcpy(currentuser, "");
+
+    printf("Logged out successfully.\n");
+}
+
+/* -------------------------------------------------- */
+
+void FreeList(user *head)
+{
+    user *temp;
+
+    while(head)
+    {
+        temp = head;
+
+        head = head->next;
+
+        free(temp);
+    }
+}
+
+/* -------------------------------------------------- */
+
+int main()
+{
+    user *head = InitializeList();
+
+    int choice;
+
+    while(1)
+    {
+        printf("\n========== TOURISM MANAGEMENT ==========\n");
+
+        if(currentstate == MENU)
+        {
+            printf("1. Register\n");
+            printf("2. Login\n");
+            printf("3. Exit\n");
+
+            printf("Enter Choice: ");
+            scanf("%d", &choice);
+
+            switch(choice)
+            {
+                case 1:
+                    head = AddUser(head);
+                    break;
+
+                case 2:
+                    LoginUser(head);
+                    break;
+
+                case 3:
+                    FreeList(head);
+
+                    printf("Exiting Program...\n");
+
+                    return 0;
+
+                default:
+                    printf("Invalid choice.\n");
+            }
+        }
+        else
+        {
+            printf("\nLogged in as: %s\n", currentuser);
+
+            printf("1. Show Brochure\n");
+            printf("2. Book Ticket\n");
+            printf("3. Check Ticket\n");
+            printf("4. Print Ticket\n");
+            printf("5. Cancel Ticket\n");
+            printf("6. Change Password\n");
+            printf("7. Logout\n");
+
+            printf("Enter Choice: ");
+            scanf("%d", &choice);
+
+            switch(choice)
+            {
+                case 1:
+                    ShowBrochure();
+                    break;
+
+                case 2:
+                    BookTicket(head);
+                    break;
+
+                case 3:
+                    CheckTicket(head);
+                    break;
+
+                case 4:
+                    PrintTicket(head);
+                    break;
+
+                case 5:
+                    CancelTicket(head);
+                    break;
+
+                case 6:
+                    ChangePassword(head);
+                    break;
+
+                case 7:
+                    LogoutUser();
+                    break;
+
+                default:
+                    printf("Invalid choice.\n");
+            }
+        }
+    }
+
+    return 0;
 }
